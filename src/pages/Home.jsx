@@ -1,28 +1,39 @@
+import InputArea from "../components/InputArea";
+import Heading from "../components/Heading";
+import ListItems from "../components/ListItems";
+import Footer from "../components/Footer";
+import { useState } from "react";
+
 const Home = () => {
+  const [list, setList] = useState([]);
+
+  const addItem = (item, setInput) => {
+    setList((prevValue) => {
+      return [...prevValue, item];
+    });
+
+    setInput("");
+  };
+
+  const deleteItem = (item) => {
+    setList((prevValue) => {
+      return prevValue.filter((value) => {
+        return value !== item;
+      });
+    });
+  };
+
   return (
-    <div className="container">
-      <div className="mb-4 flex items-center justify-center">
-        <h1 className="heading md:text-3xl">To-Do List</h1>
+    <div>
+      <div className="container">
+        <Heading />
+        <InputArea onAdd={addItem} />
+        {list.map((item, index) => (
+          <ListItems key={index} text={item} onDelete={deleteItem} />
+        ))}
       </div>
 
-      <div>
-        <input
-          type="text"
-          name="text"
-          className="font-architects text-inputColor mb-[20px] text-lg md:text-2xl"
-        />
-        <button className="button">
-          <span>Add</span>
-        </button>
-      </div>
-
-      <div>
-        <ul>
-          <li className="relative p-2 text-left text-lg md:text-xl">
-            List item
-          </li>
-        </ul>
-      </div>
+      <Footer />
     </div>
   );
 };

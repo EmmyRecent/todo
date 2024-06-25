@@ -3,7 +3,7 @@ import Home from "./pages/Home";
 
 const App = () => (
   <main>
-    <section>
+    <section className="relative">
       <Home />
     </section>
   </main>
